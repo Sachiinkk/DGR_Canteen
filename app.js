@@ -21,6 +21,7 @@ app.use(express.json()); // must be after cors
 const { swaggerUi, swaggerSpec } = require("./swagger/swaggerConfig");
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+
 // Routes
 app.use("/auth", require("./routes/authRoute"));
 app.use("/admin", require("./routes/admin.routes"));
@@ -35,14 +36,15 @@ app.get("/users/pending", async (req, res) => {
     );
     res.json(rows);
   } catch (err) {
-    console.error("Error fetching pending users:", err); // <-- log the actual error
+    console.error("Error fetching pending users:", err);
     res
       .status(500)
       .json({ message: "Failed to fetch users", error: err.message });
   }
 });
 
-// Start server
+
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);

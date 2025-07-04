@@ -10,7 +10,7 @@ exports.buyProduct = async (req, res) => {
 
   try {
     const [userRows] = await db.query(
-      "SELECT * FROM users WHERE id = ? AND role = 'employee' AND status = 'approved'",
+      "SELECT * FROM users WHERE id = ? AND Designation = 'employee' AND status = 'approved'",
       [userId]
     );
     if (!userRows.length) {
@@ -32,10 +32,10 @@ exports.buyProduct = async (req, res) => {
 
     await db.query("UPDATE users SET coupons = coupons - ? WHERE id = ?", [totalCost, userId]);
 
-    await db.query(
-      "INSERT INTO purchases (user_id, product_id, quantity, total_coupons) VALUES (?, ?, ?, ?)",
-      [userId, productId, quantity, totalCost]
-    );
+    // await db.query(
+    //   "INSERT INTO purchases (user_id, product_id, quantity, total_coupons) VALUES (?, ?, ?, ?)",
+    //   [userId, productId, quantity, totalCost]
+    // );
 
     res.status(200).json({
       message: "✅ Purchase successful",
